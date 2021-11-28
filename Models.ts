@@ -21,7 +21,7 @@ type PayGroup = {
 
 type PayPeriod = {
   StartDate : Date;
-  EndDate : Date;
+  EndDate? : Date;
 }
 
 type PayRun = {
@@ -59,6 +59,13 @@ enum RunType
   MANUAL = "Manual"
 }
 
+enum ScopeLevel
+{
+  COUNTRY = "Country",
+  COMPANY = "Company",
+  EMPLOYEE = "Employee"
+}
+
 type Employee = {
   Id : string;
   Type : string;
@@ -67,4 +74,40 @@ type Employee = {
   FirstName : string;
   LastName : string;
   StartDate : Date;
+}
+
+type ReferenceValue = {
+  Id : string;
+  Name : string;
+  Value : string;
+}
+
+type ParameterComponent = {
+  Id : string;
+  Name : string;
+  ValueType : string;
+  ReferenceValues?:  ReferenceValue[]
+}
+
+type CompanyComponent = {
+  Id : string;
+  Code : string;
+  Category : string;
+  SubCategory : string;
+  Parameters? : ParameterComponent[]
+}
+
+type ScopeOwner = {
+  Id : string;
+  Type : ScopeLevel;
+}
+
+type EmployeeComponent = {
+  Id : string;
+  StartDate : Date;
+  EndDate? : Date;
+  ParameterId : string;
+  ReferenceValueId : string;
+  Value: string;
+  Owner : ScopeOwner;
 }
